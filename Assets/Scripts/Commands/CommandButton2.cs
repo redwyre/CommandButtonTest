@@ -1,0 +1,64 @@
+using Unity.Properties;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+#nullable enable
+
+namespace Commands
+{
+    /// <summary>
+    /// CommandButton is a button that can be bound to a RelayCommand. It 
+    /// will disable itself if the command is unable to be executed.
+    /// </summary>
+    [UxmlElement]
+    public partial class CommandButton2 : Button
+    {
+        ICommand? command;
+
+        // Unity does not currently allow for nullability annotations on UxmlAttribute properties (6000.0.47)
+#nullable disable
+        [UxmlObjectReference(types = new System.Type[0])]
+        [CreateProperty]
+        public ICommand Command
+        {
+            get => command;
+            set
+            {
+                if (command == value) return;
+
+                if (command != null)
+                {
+                    command.CanExecuteChanged -= OnCanExecuteChanged;
+                }
+
+                command = value;
+
+                if (command != null)
+                {
+                    command.CanExecuteChanged += OnCanExecuteChanged;
+                }
+
+                OnCanExecuteChanged();
+            }
+        }
+#nullable enable
+
+        public CommandButton2()
+        {
+            RegisterCallback<ClickEvent>(OnClick);
+        }
+
+        private void OnClick(ClickEvent evt)
+        {
+            if (Command != null && Command.CanExecute(null))
+            {
+                Command.Execute(null);
+            }
+        }
+
+        private void OnCanExecuteChanged()
+        {
+            SetEnabled(Command?.CanExecute(null) ?? true);
+        }
+    }
+}
