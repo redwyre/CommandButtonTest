@@ -9,6 +9,10 @@ using UnityEngine.UIElements;
 
 namespace Commands
 {
+    /// <summary>
+    /// Interface for a command source. Copied from WPF but not really 
+    /// necessary.
+    /// </summary>
     public interface ICommandSource
     {
         public RelayCommand? Command { get; }

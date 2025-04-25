@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Commands
 {
+    /// <summary>
+    /// A simple implementation of the ICommand interface.
+    /// </summary>
     [Serializable]
     public class RelayCommand : ICommand
     {

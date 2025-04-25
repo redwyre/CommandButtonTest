@@ -1,11 +1,8 @@
-using Commands;
-using NUnit.Framework.Internal;
 using System;
-using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Commands;
 
 public static class UIToolKitConverters
 {
@@ -17,19 +14,10 @@ public static class UIToolKitConverters
 #endif
     public static void RegisterConverters()
     {
-
         ConverterGroups.RegisterGlobalConverter((ref RelayCommand x) =>
         {
             return (RelayCommand)x;
         });
     }
-}
-
-
-
-class MyRelayCommandConverter : UxmlAttributeConverter<RelayCommand>
-{
-    public override RelayCommand FromString(string value) => new RelayCommand((parameter) => { });
-    public override string ToString(RelayCommand value) => "BindableRelayCommand";
 }
 

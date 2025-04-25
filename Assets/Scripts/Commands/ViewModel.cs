@@ -8,6 +8,9 @@ using UnityEngine.UIElements;
 
 namespace Commands
 {
+    /// <summary>
+    /// Base class for ViewModels that implements INotifyPropertyChanged.
+    /// </summary>
     public class ViewModel : INotifyBindablePropertyChanged
     {
         public event EventHandler<BindablePropertyChangedEventArgs>? propertyChanged;

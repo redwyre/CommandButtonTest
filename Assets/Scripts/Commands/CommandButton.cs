@@ -6,6 +6,10 @@ using UnityEngine.UIElements;
 
 namespace Commands
 {
+    /// <summary>
+    /// CommandButton is a button that can be bound to a RelayCommand. It 
+    /// will disable itself if the command is unable to be executed.
+    /// </summary>
     [UxmlElement]
     public partial class CommandButton : Button, ICommandSource
     {

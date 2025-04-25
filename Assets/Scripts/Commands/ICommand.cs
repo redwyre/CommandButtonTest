@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Commands
 {
+    /// <summary>
+    /// Interface for a command. This is a copy of the WPF ICommand interface.
+    /// </summary>
     public interface ICommand
     {
         event Action CanExecuteChanged;
