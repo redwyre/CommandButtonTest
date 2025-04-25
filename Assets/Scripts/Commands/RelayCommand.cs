@@ -1,0 +1,41 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+#nullable enable
+
+namespace Commands
+{
+    [Serializable]
+    public class RelayCommand : ICommand
+    {
+        public event Action? CanExecuteChanged;
+
+        public Action<object?> ExecuteAction { get; set; }
+        public Func<object?, bool>? CanExecuteFunc { get; set; }
+
+        public RelayCommand(Action<object?> executeAction, Func<object?, bool>? canExecuteFunc = null)
+        {
+            ExecuteAction = executeAction ?? throw new ArgumentNullException(nameof(executeAction));
+            CanExecuteFunc = canExecuteFunc;
+        }
+
+        public bool CanExecute(object? parameter)
+        {
+            return CanExecuteFunc != null ? CanExecuteFunc(parameter) : true;
+        }
+
+        public void Execute(object? parameter)
+        {
+            if (CanExecute(parameter))
+            {
+                ExecuteAction(parameter);
+            }
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke();
+        }
+    }
+}
