@@ -11,11 +11,9 @@ namespace Commands
     /// will disable itself if the command is unable to be executed.
     /// </summary>
     [UxmlElement]
-    public partial class CommandButton : Button, ICommandSource
+    public partial class CommandButton : Button
     {
         RelayCommand? command;
-
-        public object? CommandParameter { get; set; } = null;
 
         // Unity does not currently allow for nullability annotations on UxmlAttribute properties (6000.0.47)
 #nullable disable
@@ -52,15 +50,15 @@ namespace Commands
 
         private void OnClick(ClickEvent evt)
         {
-            if (Command != null && Command.CanExecute(CommandParameter))
+            if (Command != null && Command.CanExecute(null))
             {
-                Command.Execute(CommandParameter);
+                Command.Execute(null);
             }
         }
 
         private void OnCanExecuteChanged()
         {
-            SetEnabled(Command?.CanExecute(CommandParameter) ?? true);
+            SetEnabled(Command?.CanExecute(null) ?? true);
         }
     }
 }
