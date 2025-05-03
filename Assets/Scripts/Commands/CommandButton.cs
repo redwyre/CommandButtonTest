@@ -1,3 +1,4 @@
+using System;
 using Unity.Properties;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -38,7 +39,7 @@ namespace Commands
                     command.CanExecuteChanged += OnCanExecuteChanged;
                 }
 
-                OnCanExecuteChanged();
+                OnCanExecuteChanged(null, EventArgs.Empty);
             }
         }
 #nullable enable
@@ -56,7 +57,7 @@ namespace Commands
             }
         }
 
-        private void OnCanExecuteChanged()
+        private void OnCanExecuteChanged(object sender, EventArgs eventArgs)
         {
             SetEnabled(Command?.CanExecute(null) ?? true);
         }

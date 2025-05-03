@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Windows.Input;
 using UnityEngine;
 
 #nullable enable
@@ -12,7 +13,7 @@ namespace Commands
     [Serializable]
     public class RelayCommand : ICommand
     {
-        public event Action? CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged;
 
         public Action<object?> ExecuteAction { get; set; }
         public Func<object?, bool>? CanExecuteFunc { get; set; }
@@ -36,9 +37,9 @@ namespace Commands
             }
         }
 
-        public void RaiseCanExecuteChanged()
+        public void RaiseCanExecuteChanged(object? sender = null)
         {
-            CanExecuteChanged?.Invoke();
+            CanExecuteChanged?.Invoke(sender, EventArgs.Empty);
         }
     }
 }
